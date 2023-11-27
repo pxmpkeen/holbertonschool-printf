@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <stddef.h>
 /**
  * _printf - handmade printf
