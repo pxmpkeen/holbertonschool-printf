@@ -1,0 +1,7 @@
+#!/bin/bash
+ac(){
+	local b="$1"
+	touch $b
+	emacs $b
+}
+ac $1
