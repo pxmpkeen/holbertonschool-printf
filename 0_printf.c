@@ -15,8 +15,10 @@ int _printf(const char *format, ...)
 	char endl = 10, c, *s;
 
 	va_start(ap, format);
-	if (!format)
-		return (0);
+	while (format[sl])
+		sl++;
+	if (!format || (format[0] == '%' && sl == 1))
+		return (1);
 	while (format[i])
 	{
 		condition_b = (format[i] == 92);
@@ -28,7 +30,9 @@ int _printf(const char *format, ...)
 		}
 		else if (condition_p && format[i + 1] == 's')
 		{
-			s = va_arg(ap, char *);
+			s = va_arg(ap, char *), sl = 0;
+			if (s == NULL)
+				s = "(null)";
 			while (s[sl])
 				sl++;
 			write(1, s, sl), i += 2, pc += sl, sl = 0;
