@@ -1,6 +1,8 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <stddef.h>
 /**
  * _printf - handmade printf
  * @format: input string
@@ -17,7 +19,7 @@ int _printf(const char *format, ...)
 		return (0);
 	while (format[i])
 	{
-		condition_b = (format[i] == 92)
+		condition_b = (format[i] == 92);
 		condition_p = (format[i] == '%');
 		if (condition_p && format[i + 1] == 'c')
 		{
