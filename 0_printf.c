@@ -15,10 +15,10 @@ int _printf(const char *format, ...)
 	char endl = 10, c, *s;
 
 	va_start(ap, format);
-	while (format[sl])
-		sl++;
 	if (format == NULL)
 		exit(98);
+	while (format[sl])
+		sl++;
 	if (format[0] == '%' && sl == 1)
 		exit(98);
 	while (format[i])
