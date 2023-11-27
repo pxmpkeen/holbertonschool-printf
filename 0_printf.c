@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[sl])
 		sl++;
-	if (!format || (format[0] == '%' && sl == 1))
+	if (format == NULL || (format[0] == '%' && sl == 1))
 		exit(98);
 	while (format[i])
 	{
