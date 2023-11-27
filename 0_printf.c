@@ -17,8 +17,10 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	while (format[sl])
 		sl++;
-	if (!format || (format[0] == '%' && sl == 1))
-		return (1);
+	if ((format[0] == '%' && sl == 1))
+		return(0);
+	if (!format)
+		return;
 	while (format[i])
 	{
 		condition_b = (format[i] == 92);
