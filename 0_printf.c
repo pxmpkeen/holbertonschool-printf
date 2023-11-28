@@ -57,7 +57,7 @@ void spec_string(va_list ap, int *pc, int *i)
 void spec_int(va_list ap, int *pc, int *i)
 {
 	int j = 0, mod;
-	char c[5];
+	char c[11];
 	char min = '-', zero = '0', cj;
 	int num = va_arg(ap, int);
 
@@ -81,9 +81,10 @@ void spec_int(va_list ap, int *pc, int *i)
 	while (j >= 0)
 	  {
 		cj = c[j];
-		(*pc) += write(1, &cj, 1), *i += 1;
+		(*pc) += write(1, &cj, 1);
 		j--;
 	  }
+	*i += 2;
 }
 /**
  * _printf - handmade printf
