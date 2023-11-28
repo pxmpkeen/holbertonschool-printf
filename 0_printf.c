@@ -59,12 +59,17 @@ void spec_int(va_list ap, int *pc, int *i)
 	int j = 0, mod;
 	char c[11];
 	char min = '-', zero = '0', cj;
-	int num = va_arg(ap, int);
+	unsigned int num;
+	int n = va_arg(ap, int);
 
-	if (num < 0)
+	if (n < 0)
 	  {
-		num *= -1;
+		num = -1 * n;
 		(*pc) += write(1, &min, 1);
+	  }
+	else
+	  {
+		num = n;
 	  }
 	if (num == 0)
 	  {
