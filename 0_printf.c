@@ -13,6 +13,7 @@
 void spec_char(va_list ap, int *pc, int *i)
 {
 	char c = (char)va_arg(ap, int);
+
 	(*pc) += write(1, &c, 1), *i += 2;
 }
 /**
@@ -24,8 +25,9 @@ void spec_char(va_list ap, int *pc, int *i)
  */
 void spec_percent(va_list ap, int *pc, int *i)
 {
-	(void)ap;
 	char c = '%';
+	(void)ap;
+
 	(*pc) += write(1, &c, 1), *i += 2;
 }
 /**
@@ -61,6 +63,7 @@ int _printf(const char *format, ...)
 		{'s', spec_string},
 		{'%', spec_percent}
 	};
+
 	if (!format)
 		exit(98);
 	if (*format == '%' && *(format + 1) == 0)
