@@ -24,6 +24,7 @@ void spec_char(va_list ap, int *pc, int *i)
  */
 void spec_percent(va_list ap, int *pc, int *i)
 {
+	void ap;
 	char c = '%';
 	(*pc) += write(1, &c, 1), *i += 2;
 }
