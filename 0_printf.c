@@ -49,6 +49,43 @@ void spec_string(va_list ap, int *pc, int *i)
 	(*pc) += write(1, s, sl), *i += 2;
 }
 /**
+ * spec_int - something usefull
+ * @ap: va_list
+ * @pc: printed counter
+ * @i: iterator
+ */
+void spec_int(va_list ap, int *pc, int *i)
+{
+	int j = 0, mod;
+	char c[5];
+	char min = '-', zero = '0', cj;
+	int num = va_arg(ap, int);
+
+	if (num < 0)
+	  {
+		num *= -1;
+		(*pc) += write(1, &min, 1);
+	  }
+	if (num == 0)
+	  {
+		(*pc) += write(1, &zero, 1);
+	  }
+	while (num > 0)
+	  {
+		mod = num % 10;
+		c[j] = mod + '0';
+		num /= 10;
+		j++;
+	  }
+	j--;
+	while (j >= 0)
+	  {
+		cj = c[j];
+		(*pc) += write(1, &cj, 1), *i += 1;
+		j--;
+	  }
+}
+/**
  * _printf - handmade printf
  * @format: input string
  * Return: number of chars
@@ -61,7 +98,8 @@ int _printf(const char *format, ...)
 	spec_t specs[] = {
 		{'c', spec_char},
 		{'s', spec_string},
-		{'%', spec_percent}
+		{'%', spec_percent},
+		{'i', spec_int},
 	};
 
 	if (!format)
@@ -79,6 +117,8 @@ int _printf(const char *format, ...)
 			specs[1].f(ap, &pc, &i);
 		else if (condition_spec && format[i + 1] == '%')
 			specs[2].f(ap, &pc, &i);
+		else if (condition_spec && (format[i + 1] == 'i' || format[i + 1] == 'd'))
+			specs[3].f(ap, &pc, &i);
 		else
 			c = format[i], write(1, &c, 1), i++, pc++;
 	}
