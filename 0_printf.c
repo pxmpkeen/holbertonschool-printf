@@ -24,7 +24,7 @@ void spec_char(va_list ap, int *pc, int *i)
  */
 void spec_percent(va_list ap, int *pc, int *i)
 {
-	void ap;
+	(void)ap;
 	char c = '%';
 	(*pc) += write(1, &c, 1), *i += 2;
 }
@@ -64,7 +64,7 @@ int _printf(const char *format, ...)
 	if (!format)
 		exit(98);
 	if (*format == '%' && *(format + 1) == 0)
-		exit (98);
+		exit(98);
 
 	va_start(ap, format);
 	while (format[i])
