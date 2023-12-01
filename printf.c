@@ -88,17 +88,6 @@ void spec_int(va_list ap, int *pc, int *i)
 	*i += 2;
 }
 /**
- * spec_binary - something usefull
- * @ap: va_list
- * @pc: printed counter
- * @i: iterator
- */
-void spec_binary(va_list ap, int *pc, int *i)
-{
-	unsigned int n = va_arg(ap, unsigned int);
-}
-
-/**
  * spec_placeholder - something usefull
  * @ap: va_list
  * @pc: printed counter
