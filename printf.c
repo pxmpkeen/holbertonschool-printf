@@ -69,7 +69,7 @@ char formatter(char c)
  */
 spec_t *specs_func()
 {
-	spec_t *specs = {
+	spec_t specs[] = {
 		{' ', spec_placeholder},
 		{'b', spec_placeholder},
 		{'c', spec_char},
