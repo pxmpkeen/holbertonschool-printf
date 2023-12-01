@@ -1,4 +1,5 @@
 #include "main.h"
+#include <limits.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -57,38 +58,33 @@ void spec_string(va_list ap, int *pc, int *i)
 void spec_int(va_list ap, int *pc, int *i)
 {
 	int j = 0, mod;
-	char c[11];
-	char min = '-', zero = '0', cj;
+	char c[11], min = '-', zero = '0', cj;
 	unsigned int num;
 	int n = va_arg(ap, int);
 
 	if (n < 0)
-	  {
+	{
 		num = -1 * n;
 		(*pc) += write(1, &min, 1);
-	  }
+	}
 	else
-	  {
 		num = n;
-	  }
 	if (num == 0)
-	  {
 		(*pc) += write(1, &zero, 1);
-	  }
 	while (num > 0)
-	  {
+	{
 		mod = num % 10;
 		c[j] = mod + '0';
 		num /= 10;
 		j++;
-	  }
+	}
 	j--;
 	while (j >= 0)
-	  {
+	{
 		cj = c[j];
 		(*pc) += write(1, &cj, 1);
 		j--;
-	  }
+	}
 	*i += 2;
 }
 /**
@@ -130,4 +126,39 @@ int _printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (pc);
+}
+int main(void)
+{
+    int len;
+    int len2;
+    unsigned int ui;
+    void *addr;
+
+    len = _printf("Let's try to printf a simple sentence.\n");
+    len2 = printf("Let's try to printf a simple sentence.\n");
+    ui = (unsigned int)INT_MAX + 1024;
+    addr = (void *)0x7ffe637541f0;
+    _printf("Length:[%d, %i]\n", len, len);
+    printf("Length:[%d, %i]\n", len2, len2);
+    _printf("Negative:[%d]\n", -762534);
+    printf("Negative:[%d]\n", -762534);
+    _printf("Unsigned:[%u]\n", ui);
+    printf("Unsigned:[%u]\n", ui);
+    _printf("Unsigned octal:[%o]\n", ui);
+    printf("Unsigned octal:[%o]\n", ui);
+    _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    _printf("Character:[%c]\n", 'H');
+    printf("Character:[%c]\n", 'H');
+    _printf("String:[%s]\n", "I am a string !");
+    printf("String:[%s]\n", "I am a string !");
+    _printf("Address:[%p]\n", addr);
+    printf("Address:[%p]\n", addr);
+    len = _printf("Percent:[%%]\n");
+    len2 = printf("Percent:[%%]\n");
+    _printf("Len:[%d]\n", len);
+    printf("Len:[%d]\n", len2);
+    _printf("Unknown:[%r]\n");
+    printf("Unknown:[%r]\n");
+    return (0);
 }
