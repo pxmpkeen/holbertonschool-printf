@@ -1,8 +1,9 @@
+#include "main.h"
+#include <limits.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <limits.h>
 /**
  * spec_char - Something usefull
  * @ap: va_list
@@ -85,4 +86,44 @@ void spec_int(va_list ap, int *pc, int *i)
 		j--;
 	}
 	*i += 2;
+}
+/**
+ * _printf - handmade printf
+ * @format: input string
+ * Return: number of chars
+ */
+int _printf(const char *format, ...)
+{
+	va_list ap;
+	char c;
+	int condition_spec, i = 0, pc = 0;
+	spec_t specs[] = {
+		{'c', spec_char},
+		{'s', spec_string},
+		{'%', spec_percent},
+		{'i', spec_int},
+	};
+
+	if (!format)
+		exit(98);
+	if (*format == '%' && *(format + 1) == 0)
+		exit(98);
+
+	va_start(ap, format);
+	while (format[i])
+	{
+		condition_spec = (format[i] == '%');
+		if (condition_spec && format[i + 1] == 'c')
+			specs[0].f(ap, &pc, &i);
+		else if (condition_spec && format[i + 1] == 's')
+			specs[1].f(ap, &pc, &i);
+		else if (condition_spec && format[i + 1] == '%')
+			specs[2].f(ap, &pc, &i);
+		else if (condition_spec && (format[i + 1] == 'i' || format[i + 1] == 'd'))
+			specs[3].f(ap, &pc, &i);
+		else
+			c = format[i], write(1, &c, 1), i++, pc++;
+	}
+	va_end(ap);
+	return (pc);
 }
