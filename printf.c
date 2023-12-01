@@ -185,8 +185,6 @@ int _printf(const char *format, ...)
 	if (*format == '%' && *(format + 1) == 0)
 		exit(98);
 
-	s = malloc(sizeof(char) * 1024);
-
 	va_start(ap, format);
 	while (format[i])
 	{
