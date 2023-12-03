@@ -1,4 +1,3 @@
-DIY _printf
 Repository of printf function
 main.h - file with all function prototypes and structures.
 0_printf.c - file with printf function code
